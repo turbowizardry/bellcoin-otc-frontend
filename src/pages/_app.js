@@ -4,6 +4,7 @@ import { WagmiConfig, createConfig, configureChains, sepolia } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 import { InjectedConnector } from 'wagmi/connectors/injected'
+import { Header } from '@/components/Header';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [sepolia],
@@ -28,6 +29,7 @@ const config = createConfig({
 export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig config={config}>
+      <Header />
       <Component {...pageProps} />
     </WagmiConfig>
   )
