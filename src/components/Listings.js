@@ -27,7 +27,7 @@ export const Listings = () => {
   if(data) {
     return <div>
       { data.map( (listing, listingIndex) => {
-        return <Listing listing={listing} onBuy={() => {
+        return <Listing key={listingIndex} listing={listing} onBuy={() => {
           setShowModal(true); 
           setBuyListing(listing);
           setBuyListingId(listingIndex);
