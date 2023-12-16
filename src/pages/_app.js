@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css';
 
-
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import { optimism } from "wagmi/chains";
 
@@ -14,6 +13,7 @@ import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [optimism],
@@ -41,6 +41,7 @@ export default function App({ Component, pageProps }) {
       <RainbowKitProvider chains={chains}>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </RainbowKitProvider>
     </WagmiConfig>
   )

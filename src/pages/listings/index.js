@@ -3,11 +3,8 @@ import { SellerListings } from '@/components/SellerListings';
 import Link from 'next/link'
 export default function Index() {
   return (
-    <main
-      className={`flex flex-col min-h-screen`}
-    >
-      
-      
+    <main className={`flex flex-col min-h-screen`}>
+    
       <div className="max-w-3xl mx-auto w-full items-center justify-between p-8">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-900">Your listings</h1>

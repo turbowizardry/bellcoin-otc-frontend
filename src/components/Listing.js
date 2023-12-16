@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useContractWrite } from 'wagmi'
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
 
-export function Listing({ listing, listingId, onBuy }) {
+export function Listing({ listing, listingId, usdPrice, onBuy }) {
   //console.log(listing);
 
   const { address } = useAccount()
@@ -46,17 +46,17 @@ export function Listing({ listing, listingId, onBuy }) {
 
   return (
     <Card>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-col sm:flex-row justify-between overflow-hidden">
         <div className="flex flex-col">
           <div className="flex flex-row space-x-4">
-            <div className="flex flex-row space-x-1 items-center">
+            <div className="flex flex-row space-x-1 items-center w-full">
               <Image className="w-6 h-6" src="/bellcoin.png" width={32} height={32} />
               <div className="text-xl font-bold">{listing.bellcoinAmount.toString()} BEL</div>
             </div>
             
-            <div className="flex space-x-1 items-center">
+            <div className="flex space-x-1 items-center w-full">
               <Image className="w-6 h-6" src="/ethereum.svg" width={32} height={32} />
-              <div className="text-xl font-bold">{formatEther(listing.priceInEth)} ETH</div>
+              <div className="text-xl font-bold text-gray-900">{formatEther(listing.priceInEth)} ETH <span className="text-sm font-medium">(${formatEther(listing.priceInEth) * usdPrice})</span></div>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ export function Listing({ listing, listingId, onBuy }) {
           </div>
         </div>
   
-        <div className="flex space-x-2 items-center">
+        <div className="flex space-x-2 items-center mt-3 sm:mt-0">
           { !listing.isDeposited &&
           <>
             <span className="text-gray-600 text-sm">Waiting for deposit</span>
