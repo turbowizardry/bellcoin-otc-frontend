@@ -18,7 +18,7 @@ export default function Create() {
   const [bellcoinAmount, setBellcoinAmount] = useState('');
   const [price, setPrice] = useState('');
 
-  const { data, isLoading, isSuccess, isError, write, error } = useContractWrite({
+  const { data, isError, write, error } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
     abi: bellcoinOTCABI,
     functionName: 'listDeal',
@@ -27,6 +27,11 @@ export default function Create() {
       bellcoinAmount,
       price ? parseEther(price) : 0
     ]
+  })
+
+  const {isLoading, isSuccess} = useWaitForTransaction({
+    hash: data?.hash,
+    confirmations: 3
   })
 
 
