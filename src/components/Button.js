@@ -7,11 +7,13 @@ export function Button({ onClick, disabled, size, scheme, children}) {
   const schemeClasses = { 
     'primary': 'bg-indigo-500 hover:bg-indigo-600 border-transparent text-white focus-visible:outline-indigo-600', 
     'secondary': 'bg-transparent text-gray-700 border-indigo-500 hover:bg-gray-50 focus-visible:outline-indigo-600',
-    'muted': 'bg-transparent text-gray-600 border-gray-400 hover:bg-gray-50 focus-visible:outline-gray-600' 
+    'muted': 'bg-transparent text-gray-600 border-gray-400 hover:bg-gray-50 focus-visible:outline-gray-600',
+    'disabled': 'bg-indigo-100 text-gray-500 border-transparent cursor-not-allowed'
   }
 
   const sizeClass = sizeClasses[size] || sizeClasses['md']
-  const schemeClass = schemeClasses[scheme] || schemeClasses['primary'];
+  let schemeClass = schemeClasses[scheme] || schemeClasses['primary'];
+  if(disabled) schemeClass = schemeClasses['disabled'];
 
   return (
     <button

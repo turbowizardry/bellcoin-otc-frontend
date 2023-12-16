@@ -51,6 +51,8 @@ export default function Create() {
     }
   }, [price]);
 
+  const isReady = price.length > 0 && bellcoinAmount.length > 0 && bellcoinAddress.length == 34;
+
   return (
     <main className={`flex flex-col min-h-screen`} >
       <div className="max-w-3xl mx-auto w-full items-center justify-between p-8">
@@ -109,7 +111,7 @@ export default function Create() {
                 name="bellcoinAmount"
                 id="bellcoinAmount"
                 value={bellcoinAmount}
-                onChange={(e) => setBellcoinAmount(e.target.value)}
+                onChange={(e) => setBellcoinAmount(trim(e.target.value))}
                 className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -148,7 +150,7 @@ export default function Create() {
             </div>
           </div>
           <div className="">
-            <Button onClick={() => write()} disabled={isLoading} size="md" scheme="primary">
+            <Button onClick={() => write()} disabled={isLoading || !isReady} size="md" scheme="primary">
               <span className="flex items-center">
                 <span>Create listing</span>
                 {isLoading && <ArrowPathIcon className="animate-spin h-5 w-5 ml-3" />}

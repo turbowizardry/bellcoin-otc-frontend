@@ -81,7 +81,7 @@ export function BuyModal({showModal, closeModal, listing, listingId}) {
                   </ErrorAlert>
                 }
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse sm:gap-x-2">
-                  <Button onClick={() => write()} disabled={isLoading} size="md" scheme="primary">Buy {listing.bellcoinAmount.toString()} BEL for {formatEther(listing.priceInEth)} ETH</Button>
+                  <Button onClick={() => write()} disabled={isLoading || address.length != 34} size="md" scheme="primary">Buy {listing.bellcoinAmount.toString()} BEL for {formatEther(listing.priceInEth)} ETH</Button>
                   <Button onClick={() => closeModal()} size="md" scheme="muted">Cancel purchase</Button>
                 </div>
 
