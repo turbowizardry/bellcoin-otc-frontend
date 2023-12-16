@@ -40,7 +40,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
     fillWrite()
   }
 
-  if(listing.isCancelled) {
+  if(listing.isCancelled || (address != process.env.NEXT_PUBLIC_CONTRACT_OWNER && !listing.isDeposited)) {
     return (<></>)
   }
 
