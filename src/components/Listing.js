@@ -44,6 +44,9 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
     return (<></>)
   }
 
+  const fullPrice = formatEther(listing.priceInEth) * usdPrice;
+  const tokenPrice = fullPrice / Number(listing.bellcoinAmount);
+
   return (
     <Card>
       <div className="flex flex-col sm:flex-row justify-between overflow-hidden">
@@ -56,7 +59,12 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
             
             <div className="flex space-x-1 items-center w-full sm:w-auto">
               <Image className="w-6 h-6" src="/ethereum.svg" width={32} height={32} />
-              <div className="text-xl font-bold text-gray-900">{formatEther(listing.priceInEth)} ETH <span className="text-sm font-medium">(${formatEther(listing.priceInEth) * usdPrice})</span></div>
+              <div className="text-xl font-bold text-gray-900">
+                {formatEther(listing.priceInEth)} ETH 
+                <span className="text-sm font-medium ml-1">
+                  (${fullPrice.toFixed(2)} | ${tokenPrice.toFixed(2)} / BEL)
+                </span>
+              </div>
             </div>
           </div>
 
