@@ -4,7 +4,7 @@ import { useContractRead } from 'wagmi'
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json';
 import { Listing } from '@/components/Listing';
 import { BuyModal } from './BuyModal';
-import { getEthPrice } from '@/utils/getEthPrice';
+import { GetEthPrice } from '@/utils/GetEthPrice';
 
 export const Listings = () => {
   const { data, isLoading, error } = useContractRead({
@@ -18,7 +18,7 @@ export const Listings = () => {
   const [buyListing, setBuyListing] = useState(null);
   const [buyListingId, setBuyListingId] = useState(null);
 
-  const ethPrice = getEthPrice();
+  const ethPrice = GetEthPrice();
 
   if(isLoading) {
     return <div></div>

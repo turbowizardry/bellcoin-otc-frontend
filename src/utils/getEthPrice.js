@@ -1,6 +1,6 @@
 import { useContractRead } from 'wagmi'
 
-export const getEthPrice = () => {
+export const GetEthPrice = () => {
   const { data, isLoading, error } = useContractRead({
     address: '0x13e3ee699d1909e989722e753853ae30b17e08c5',
     abi: [
