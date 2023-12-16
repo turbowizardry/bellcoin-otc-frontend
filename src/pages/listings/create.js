@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   usePrepareContractWrite,
@@ -7,16 +7,21 @@ import {
 } from 'wagmi'
 
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
-import { parseEther } from "ethers"
+import { parseEther, formatEther } from "ethers"
 import { Button } from '@/components/Button';
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
 import { ErrorAlert } from '@/components/ErrorAlert';
 import Link from 'next/link';
 
+import { GetEthPrice } from '@/utils/GetEthPrice';
+
 export default function Create() {
   const [bellcoinAddress, setBellcoinAddress] = useState('');
   const [bellcoinAmount, setBellcoinAmount] = useState('');
   const [price, setPrice] = useState('');
+  const [priceBEL, setPriceBEL] = useState('');
+
+  const ethPrice = GetEthPrice();
 
   const { data, isError, write, error } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -25,7 +30,7 @@ export default function Create() {
     args: [
       bellcoinAddress,
       bellcoinAmount,
-      price ? parseEther(price) : 0
+      price ? parseEther(Number(price).toFixed(6)) : 0
     ]
   })
 
@@ -34,6 +39,17 @@ export default function Create() {
     confirmations: 3
   })
 
+  useEffect(() => {
+    if(ethPrice) {
+      setPrice((Number(priceBEL) * Number(bellcoinAmount) / ethPrice).toString());
+    }
+  }, [priceBEL, bellcoinAmount]);
+
+  useEffect(() => {
+    if(ethPrice && Number(bellcoinAmount) > 0) {
+      setPriceBEL((Number(price) * ethPrice / Number(bellcoinAmount)).toString());
+    }
+  }, [price]);
 
   return (
     <main className={`flex flex-col min-h-screen`} >
@@ -98,22 +114,38 @@ export default function Create() {
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium leading-6 text-gray-900">
-              ETH Price
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="price"
-                id="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+          <div className="flex flex-row space-x-4">
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                $ per BEL
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="priceBEL"
+                  id="priceBEL"
+                  value={priceBEL}
+                  onChange={(e) => setPriceBEL(e.target.value)}
+                  className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                ETH Amount
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="price"
+                  id="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
             </div>
           </div>
-
           <div className="">
             <Button onClick={() => write()} disabled={isLoading} size="md" scheme="primary">
               <span className="flex items-center">
