@@ -84,7 +84,7 @@ export default function Create() {
         <div className="flex flex-col space-y-4">
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">
-              BEL Address
+              Your BEL Address
             </label>
             <div className="mt-2">
               <input
