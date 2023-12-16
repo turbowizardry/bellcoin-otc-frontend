@@ -99,15 +99,21 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
         
       </div>
       {address == process.env.NEXT_PUBLIC_CONTRACT_OWNER && 
-          <div className="flex space-x-2 items-center justify-end">
-            {!listing.isDeposited &&
-              <Button onClick={() => adminDeposited()} size="sm" scheme="secondary">Deposited</Button>
-            }
-            {!listing.isFulfilled && listing.isSold &&
-              <Button onClick={() => adminFulfilled()} size="sm" scheme="secondary">Fulfill</Button>
-            }
-            
+          <div className="flex justify-between items-center">
+            <div className="">
+              <span className="text-gray-600 text-sm">Buyer: {listing.buyerBellcoinAddress}</span>
+            </div>
+            <div className="flex space-x-2 items-center justify-end">
+              {!listing.isDeposited &&
+                <Button onClick={() => adminDeposited()} size="sm" scheme="secondary">Deposited</Button>
+              }
+              {!listing.isFulfilled && listing.isSold &&
+                <Button onClick={() => adminFulfilled()} size="sm" scheme="secondary">Fulfill</Button>
+              }
+              
+            </div>
           </div>
+          
         }
     </Card>
   )

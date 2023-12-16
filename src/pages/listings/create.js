@@ -96,6 +96,7 @@ export default function Create() {
                 className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
+            <p className="mt-1 text-sm leading-6 text-gray-600">You must send BEL from this address to the escrow address or else you may lose your BEL.</p>
           </div>
 
           <div>
