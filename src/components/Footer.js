@@ -5,7 +5,8 @@ const navigation = {
     { name: 'Escrow Contract', href: `https://belscan.io/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`, target: '_blank' },
     { name: 'FAQ', href: '/faq', target: '_self' },
     { name: 'Your listings', href: '/listings', target: '_self' },
-    { name: 'Discord', href: 'https://discord.gg/EtWj5MFk', target: '_blank' }
+    { name: 'Discord', href: 'https://discord.gg/EtWj5MFk', target: '_blank' },
+    { name: 'Github', href: 'https://github.com/turbowizardry/bellcoin-otc-contracts', target: '_blank' }
   ]
 }
 
