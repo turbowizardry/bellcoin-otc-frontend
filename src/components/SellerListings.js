@@ -26,7 +26,7 @@ export const SellerListings = () => {
   }
 
   if(data) {
-    return <div>
+    return <div className="space-y-3">
       { data.map( (listingId) => {
         return <SellerListing key={listingId} listingId={listingId} />
       })}

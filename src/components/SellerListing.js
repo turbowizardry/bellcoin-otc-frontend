@@ -1,9 +1,9 @@
-import { useContractRead } from 'wagmi'
+import { useContractRead, useContractWrite } from 'wagmi'
 
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
 
-import bellcoinOTCABI from '@/abi/bellcoinOTC.json';
+import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
 
 import { formatEther } from "ethers"
 import Image from 'next/image'
@@ -15,7 +15,17 @@ export function SellerListing({listingId}) {
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
     abi: bellcoinOTCABI,
     functionName: 'listings',
-    args: [listingId]
+    args: [listingId],
+    watch: true
+  })
+
+  const { write: cancelWrite } = useContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: bellcoinOTCABI,
+    functionName: 'cancelListing',
+    args: [
+      listingId
+    ]
   })
 
   if(isLoading) {
@@ -56,21 +66,26 @@ export function SellerListing({listingId}) {
           </div>
     
           <div className="flex space-x-2 items-center">
-            { !data.isDeposited &&
+            { !data[5] &&
             <>
               <span className="text-gray-600 text-sm">Waiting for deposit</span>
             </>
              
             }
   
-            { data.isDeposited && !data.isSold &&
-              <Button onClick={onBuy} size="md" scheme="primary">Buy</Button>
+            { !data[6] && !data[7] && !data[8] &&
+              <>
+                <Button onClick={() => cancelWrite()} size="md" scheme="primary">Cancel</Button>
+              </>
+            }
+
+            { data[8] &&
+            <>
+              <span className="text-gray-600 text-sm">Cancelled</span>
+            </>
+             
             }
   
-            { data.isSold &&
-              <span className="text-green-600 font-bold text-sm">Sold!!</span>
-            }
-            
           </div>
         </div>
       </Card>
