@@ -30,7 +30,7 @@ export default function Create() {
     args: [
       bellcoinAddress,
       bellcoinAmount,
-      price ? parseEther(Number(price).toFixed(6)) : 0
+      price ? parseEther(Number(price.replace(/[^.\d]/g, '')).toFixed(6)) : 0
     ]
   })
 
@@ -41,13 +41,13 @@ export default function Create() {
 
   useEffect(() => {
     if(ethPrice) {
-      setPrice((Number(priceBEL) * Number(bellcoinAmount) / ethPrice).toString());
+      setPrice((Number(priceBEL.replace(/[^.\d]/g, '')) * Number(bellcoinAmount.replace(/[^.\d]/g, '')) / ethPrice).toString());
     }
   }, [priceBEL, bellcoinAmount]);
 
   useEffect(() => {
     if(ethPrice && Number(bellcoinAmount) > 0) {
-      setPriceBEL((Number(price) * ethPrice / Number(bellcoinAmount)).toString());
+      setPriceBEL((Number(price.replace(/[^.\d]/g, '')) * ethPrice / Number(bellcoinAmount.replace(/[^.\d]/g, ''))).toString());
     }
   }, [price]);
 
@@ -107,7 +107,7 @@ export default function Create() {
             </label>
             <div className="mt-2">
               <input
-                type="text"
+                type="number"
                 name="bellcoinAmount"
                 id="bellcoinAmount"
                 value={bellcoinAmount}
