@@ -40,6 +40,10 @@ export function Listing({ listing, listingId, onBuy }) {
     fillWrite()
   }
 
+  if(listing.isCancelled) {
+    return (<></>)
+  }
+
   return (
     <Card>
       <div className="flex flex-row justify-between">
@@ -74,7 +78,7 @@ export function Listing({ listing, listingId, onBuy }) {
            
           }
 
-          { listing.isDeposited && !listing.isSold &&
+          { listing.isDeposited && !listing.isSold && !listing.isCancelled &&
             <Button onClick={onBuy} size="md" scheme="primary">Buy</Button>
           }
 
