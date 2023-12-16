@@ -1,30 +1,47 @@
 import '@/styles/globals.css'
+import '@rainbow-me/rainbowkit/styles.css';
+
 
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
-import { optimism, optimismSepolia } from "wagmi/chains";
+import { optimism } from "wagmi/chains";
+
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+
 import { publicProvider } from 'wagmi/providers/public'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+
 import { Header } from '@/components/Header';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [optimism, optimismSepolia],
+  [optimism],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API }), 
-    publicProvider()],
+    publicProvider()
+  ],
 )
- 
-const config = createConfig({
+
+const { connectors } = getDefaultWallets({
+  appName: 'BELSwap',
+  projectId: process.env.NEXT_PUBLIC_RAINBOW_PROJECT_ID,
+  chains
+});
+
+const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors: [new InjectedConnector({ chains })],
-  publicClient,
+  connectors,
+  publicClient
 })
  
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig config={config}>
-      <Header />
-      <Component {...pageProps} />
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains}>
+        <Header />
+        <Component {...pageProps} />
+      </RainbowKitProvider>
     </WagmiConfig>
   )
 }
