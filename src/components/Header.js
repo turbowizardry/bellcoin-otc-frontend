@@ -14,7 +14,14 @@ export function Header() {
         </div>
  
         <div className="flex flex-1 items-center justify-end gap-x-6">
-         
+          <Link href={`https://belscan.io/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`} target="_blank" className="text-sm font-semibold leading-6 text-gray-900">
+            Escrow contract
+          </Link>
+
+          <Link href='/faq' className="text-sm font-semibold leading-6 text-gray-900">
+            FAQ
+          </Link>
+
           <Link href='/listings' className="text-sm font-semibold leading-6 text-gray-900">
             Your listings
           </Link>

@@ -25,9 +25,9 @@ export const Listings = () => {
   }
 
   if(data) {
-    return <div>
+    return <div className="space-y-3">
       { data.map( (listing, listingIndex) => {
-        return <Listing key={listingIndex} listing={listing} onBuy={() => {
+        return <Listing key={listingIndex} listingId={listingIndex} listing={listing} onBuy={() => {
           setShowModal(true); 
           setBuyListing(listing);
           setBuyListingId(listingIndex);

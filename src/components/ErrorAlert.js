@@ -7,7 +7,7 @@ export function ErrorAlert({children}) {
         <div className="flex-shrink-0">
           <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
         </div>
-        <div className="ml-3 font-medium text-sm text-red-800">
+        <div className="ml-3 font-medium text-sm text-red-800 overflow-hidden">
           {children}
         </div>
       </div>

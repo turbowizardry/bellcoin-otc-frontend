@@ -15,7 +15,7 @@ import { formatEther } from "ethers"
 export function BuyModal({showModal, closeModal, listing, listingId}) {
   const [address, setAddress] = useState('');
 
-  const { data, isLoading, isSuccess, isError, write } = useContractWrite({
+  const { data, isLoading, isSuccess, isError, write, error } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
     abi: bellcoinOTCABI,
     functionName: 'purchaseDeal',
@@ -77,7 +77,7 @@ export function BuyModal({showModal, closeModal, listing, listingId}) {
                 </div>
                 {isError &&
                   <ErrorAlert>
-                    <span>Something went wrong. Check the console.</span>
+                    {error?.message}
                   </ErrorAlert>
                 }
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse sm:gap-x-2">

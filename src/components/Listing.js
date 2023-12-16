@@ -1,13 +1,44 @@
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
+import { useAccount } from 'wagmi'
 
 import { formatEther } from "ethers"
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useContractWrite } from 'wagmi'
+import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
 
-export function Listing({ listing, onBuy }) {
+export function Listing({ listing, listingId, onBuy }) {
   //console.log(listing);
+
+  const { address } = useAccount()
+
+  const { write: depositWrite } = useContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: bellcoinOTCABI,
+    functionName: 'markAsDeposited',
+    args: [
+      listingId
+    ]
+  })
+
+  const { write: fillWrite } = useContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: bellcoinOTCABI,
+    functionName: 'markAsFulfilled',
+    args: [
+      listingId
+    ]
+  })
+
+  const adminDeposited = () => {
+    depositWrite()
+  }
+
+  const adminFulfilled = () => {
+    fillWrite()
+  }
 
   return (
     <Card>
@@ -52,7 +83,20 @@ export function Listing({ listing, onBuy }) {
           }
           
         </div>
+
+        
       </div>
+      {address == process.env.NEXT_PUBLIC_CONTRACT_OWNER && 
+          <div className="flex space-x-2 items-center justify-end">
+            {!listing.isDeposited &&
+              <Button onClick={() => adminDeposited()} size="sm" scheme="secondary">Deposited</Button>
+            }
+            {!listing.isFulfilled && listing.isSold &&
+              <Button onClick={() => adminFulfilled()} size="sm" scheme="secondary">Fulfill</Button>
+            }
+            
+          </div>
+        }
     </Card>
   )
 }
