@@ -9,7 +9,8 @@ export const Listings = () => {
   const { data, isLoading, error } = useContractRead({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
     abi: bellcoinOTCABI,
-    functionName: 'getListings'
+    functionName: 'getListings',
+    watch: true
   })
 
   const [showModal, setShowModal] = useState(false);
