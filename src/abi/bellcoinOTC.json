@@ -115,24 +115,6 @@
 		"type": "fallback"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "listingIndex",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPriceInEth",
-				"type": "uint256"
-			}
-		],
-		"name": "updatePrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "withdraw",
 		"outputs": [],
