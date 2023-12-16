@@ -66,11 +66,10 @@ export function SellerListing({listingId}) {
           </div>
     
           <div className="flex space-x-2 items-center">
-            { !data[5] &&
+            { !data[5] && !data[8] && 
             <>
               <span className="text-gray-600 text-sm">Waiting for deposit</span>
             </>
-             
             }
   
             { !data[6] && !data[7] && !data[8] &&
@@ -84,6 +83,10 @@ export function SellerListing({listingId}) {
               <span className="text-gray-600 text-sm">Cancelled</span>
             </>
              
+            }
+
+            { data[6] &&
+              <span className="text-green-600 font-bold text-sm">Sold!!</span>
             }
   
           </div>

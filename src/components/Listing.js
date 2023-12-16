@@ -13,6 +13,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
   //console.log(listing);
 
   const { address } = useAccount()
+  const isAdmin = (address == process.env.NEXT_PUBLIC_CONTRACT_OWNER);
 
   const { write: depositWrite } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -40,7 +41,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
     fillWrite()
   }
 
-  if(listing.isCancelled || (address != process.env.NEXT_PUBLIC_CONTRACT_OWNER && !listing.isDeposited)) {
+  if((listing.isCancelled || !listing.isDeposited) && !isAdmin) {
     return (<></>)
   }
 
@@ -79,9 +80,16 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
         </div>
   
         <div className="flex space-x-2 items-center mt-3 sm:mt-0">
-          { !listing.isDeposited &&
+          { !listing.isDeposited && !listing.isCancelled &&
           <>
             <span className="text-gray-600 text-sm">Waiting for deposit</span>
+          </>
+           
+          }
+
+          { listing.isCancelled &&
+          <>
+            <span className="text-red-600 text-sm">Cancelled</span>
           </>
            
           }
@@ -98,13 +106,14 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
 
         
       </div>
-      {address == process.env.NEXT_PUBLIC_CONTRACT_OWNER && 
+      {isAdmin && 
           <div className="flex justify-between items-center">
-            <div className="">
+            <div className="flex space-x-4">
+              <span className="text-gray-600 text-sm">ID: {listingId}</span>
               <span className="text-gray-600 text-sm">Buyer: {listing.buyerBellcoinAddress}</span>
             </div>
             <div className="flex space-x-2 items-center justify-end">
-              {!listing.isDeposited &&
+              {!listing.isDeposited && !listing.isCancelled &&
                 <Button onClick={() => adminDeposited()} size="sm" scheme="secondary">Deposited</Button>
               }
               {!listing.isFulfilled && listing.isSold &&
