@@ -19,12 +19,11 @@ export const Listings = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [buyListing, setBuyListing] = useState(null);
-  const [buyListingId, setBuyListingId] = useState(null);
 
   const ethPrice = GetEthPrice();
 
   if(isLoading) {
-    return <div></div>
+    return <></>
   }
 
   if(error) {
@@ -43,7 +42,6 @@ export const Listings = () => {
     if( !isAdmin ) {
       listings.sort(compareBySold);
     }
-    
     
     return (
       <div>
@@ -64,6 +62,6 @@ export const Listings = () => {
     )
   }
 
-  return <div>Loading...</div>
+  return <></>
 
 }

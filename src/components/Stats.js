@@ -23,9 +23,8 @@ export function Stats({ listings, ethPrice }) {
 
   return (
     <div className="mb-16 grid grid-cols-2 overflow-hidden rounded-xl text-center border border-gray-200 p-4">
-
       <div className="flex flex-col space-y-1">
-        <div className="text-sm font-semibold leading-6 text-gray-600">🔮 Total BEL listed 🔮</div>
+        <div className="text-sm font-semibold leading-6 text-gray-600">🔮 Listed BEL 🔮</div>
         <div className="text-3xl font-semibold tracking-tight text-gray-900">
           {totalBEL.toString()} BEL
           <span className="block text-lg font-medium">${listedBELPrice.toFixed(2)} per BEL</span>

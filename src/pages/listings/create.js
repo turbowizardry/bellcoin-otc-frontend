@@ -36,11 +36,11 @@ export default function Create() {
 
   const {isLoading, isSuccess} = useWaitForTransaction({
     hash: data?.hash,
-    confirmations: 3
+    timeout: 30000
   })
 
   useEffect(() => {
-    if(ethPrice) {
+    if(ethPrice && Number(bellcoinAmount) > 0) {
       setPrice((Number(priceBEL.replace(/[^.\d]/g, '')) * Number(bellcoinAmount.replace(/[^.\d]/g, '')) / ethPrice).toString());
     }
   }, [priceBEL, bellcoinAmount]);
