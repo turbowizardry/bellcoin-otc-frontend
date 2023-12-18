@@ -55,7 +55,7 @@ export const Listings = () => {
             return <Listing key={listingIndex} usdPrice={ethPrice} listing={listing} onBuy={() => {
               setShowModal(true); 
               setBuyListing(listing);
-              setBuyListingId(listingIndex);
+              setBuyListingId(listing.listingId);
             }} />
           })}
 
