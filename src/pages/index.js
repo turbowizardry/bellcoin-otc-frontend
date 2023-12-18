@@ -1,12 +1,13 @@
 
 import { Listings } from '@/components/Listings';
 import Link from 'next/link';
+
 export default function Home() {
   return (
     <main className={`flex flex-col`}>
       
       <div className="max-w-3xl mx-auto w-full items-center justify-between p-8">
-        <div className="text-center pb-16 my-8 sm:my-16 border-b border-gray-200">
+        <div className="text-center my-8 sm:my-16">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Buy and sell BEL with ETH
           </h1>
