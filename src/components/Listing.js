@@ -52,27 +52,27 @@ export function Listing({ listing, usdPrice, onBuy }) {
     <Card>
       <div className="flex flex-col sm:flex-row justify-between overflow-hidden">
         <div className="flex flex-col">
-          <div className="flex flex-row space-x-4">
-            <div className="flex flex-row space-x-1 items-center w-full sm:w-auto">
+          <div className="flex flex-row space-x-6 justify-between sm:justify-normal">
+            <div className="flex flex-row space-x-1 items-center ">
               <Image className="w-6 h-6" src="/bellcoin.png" width={32} height={32} />
               <div className="text-xl font-bold">{listing.bellcoinAmount.toString()} BEL</div>
             </div>
             
-            <div className="flex space-x-1 items-center w-full sm:w-auto">
+            <div className="flex space-x-1 items-center">
               <Image className="w-6 h-6" src="/ethereum.svg" width={32} height={32} />
               <div className="text-xl font-bold text-gray-900">
-                {formatEther(listing.priceInEth)} ETH 
-                <span className="text-sm font-medium ml-1">
+                {(+formatEther(listing.priceInEth)).toFixed(6)} ETH 
+                <span className="text-sm block sm:inline font-medium ml-1">
                   (${fullPrice.toFixed(2)} | ${tokenPrice.toFixed(2)} / BEL)
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="">
+          <div className="max-w-sm truncate">
             <Link 
               href={`https://belscan.io/address/${listing.sellerBellcoinAddress}`} 
-              className="text-sm truncate text-ellipsis text-gray-700 hover:underline"
+              className="text-sm text-gray-700 hover:underline"
               target='_blank'>
               {listing.sellerBellcoinAddress}
             </Link>
@@ -107,7 +107,7 @@ export function Listing({ listing, usdPrice, onBuy }) {
         
       </div>
       {isAdmin && 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center border-t border-gray-200 mt-2 pt-2">
             <div className="flex space-x-4">
               <span className="text-gray-600 text-sm">ID: {listing.listingId}</span>
               <span className="text-gray-600 text-sm">Buyer: {listing.buyerBellcoinAddress}</span>
