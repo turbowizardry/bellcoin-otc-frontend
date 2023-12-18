@@ -53,7 +53,7 @@ export function Listing({ listing, usdPrice, onBuy }) {
       <div className="flex flex-col sm:flex-row justify-between overflow-hidden">
         <div className="flex flex-col">
           <div className="flex flex-row space-x-6 justify-between sm:justify-normal">
-            <div className="flex flex-row space-x-1 items-center ">
+            <div className="flex flex-row space-x-1 items-center sm:w-32">
               <Image className="w-6 h-6" src="/bellcoin.png" width={32} height={32} />
               <div className="text-xl font-bold">{listing.bellcoinAmount.toString()} BEL</div>
             </div>
