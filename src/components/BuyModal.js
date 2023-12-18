@@ -12,7 +12,7 @@ import {
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
 import { formatEther } from "ethers"
 
-export function BuyModal({showModal, closeModal, listing, listingId}) {
+export function BuyModal({showModal, closeModal, listing}) {
   const [address, setAddress] = useState('');
 
   const { data, isLoading, isSuccess, isError, write, error } = useContractWrite({
@@ -20,7 +20,7 @@ export function BuyModal({showModal, closeModal, listing, listingId}) {
     abi: bellcoinOTCABI,
     functionName: 'purchaseDeal',
     args: [
-      listingId,
+      listing ? listing.listingId : "",
       address
     ],
     value: listing ? listing.priceInEth : 0
