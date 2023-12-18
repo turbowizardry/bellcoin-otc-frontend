@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useContractWrite } from 'wagmi'
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
 
-export function Listing({ listing, listingId, usdPrice, onBuy }) {
+export function Listing({ listing, usdPrice, onBuy }) {
   //console.log(listing);
 
   const { address } = useAccount()
@@ -20,7 +20,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
     abi: bellcoinOTCABI,
     functionName: 'markAsDeposited',
     args: [
-      listingId
+      listing.listingId
     ]
   })
 
@@ -29,7 +29,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
     abi: bellcoinOTCABI,
     functionName: 'markAsFulfilled',
     args: [
-      listingId
+      listing.listingId
     ]
   })
 
@@ -109,7 +109,7 @@ export function Listing({ listing, listingId, usdPrice, onBuy }) {
       {isAdmin && 
           <div className="flex justify-between items-center">
             <div className="flex space-x-4">
-              <span className="text-gray-600 text-sm">ID: {listingId}</span>
+              <span className="text-gray-600 text-sm">ID: {listing.listingId}</span>
               <span className="text-gray-600 text-sm">Buyer: {listing.buyerBellcoinAddress}</span>
             </div>
             <div className="flex space-x-2 items-center justify-end">

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useContractRead } from 'wagmi'
+import { useContractRead, useAccount } from 'wagmi'
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json';
 import { Listing } from '@/components/Listing';
 import { BuyModal } from './BuyModal';
@@ -13,6 +13,9 @@ export const Listings = () => {
     functionName: 'getListings',
     watch: true
   })
+
+  const { address } = useAccount()
+  const isAdmin = (address == process.env.NEXT_PUBLIC_CONTRACT_OWNER);
 
   const [showModal, setShowModal] = useState(false);
   const [buyListing, setBuyListing] = useState(null);
@@ -28,15 +31,28 @@ export const Listings = () => {
     return <div>{error.message}</div>
   }
 
+  function compareBySold(a, b) {
+    return (a.isSold === b.isSold)? 0 : b.isSold? -1 : 1;
+  }
+
   if(data) {
+    let listings = data.map( (listing, listingIndex) => {
+      return { ...listing, listingId: listingIndex }
+    });
+
+    if( !isAdmin ) {
+      listings.sort(compareBySold);
+    }
+    
+    
     return (
       <div>
         <Stats listings={data} ethPrice={ethPrice} />
       
         <div className="space-y-3">
       
-          { data.map( (listing, listingIndex) => {
-            return <Listing key={listingIndex} usdPrice={ethPrice} listingId={listingIndex} listing={listing} onBuy={() => {
+          { listings.map( (listing, listingIndex) => {
+            return <Listing key={listingIndex} usdPrice={ethPrice} listing={listing} onBuy={() => {
               setShowModal(true); 
               setBuyListing(listing);
               setBuyListingId(listingIndex);
