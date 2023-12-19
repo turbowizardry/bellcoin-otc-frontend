@@ -56,8 +56,9 @@ export const Listings = () => {
             }} />
           })}
 
-          <BuyModal showModal={showModal} usdPrice={ethPrice} closeModal={() => setShowModal(false)} listing={buyListing} />
         </div>
+
+        <BuyModal showModal={showModal} usdPrice={ethPrice} closeModal={() => setShowModal(false)} listing={buyListing} />
       </div>
     )
   }
