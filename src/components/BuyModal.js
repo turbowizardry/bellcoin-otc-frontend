@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Button } from '@/components/Button';
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ErrorAlert } from '@/components/ErrorAlert';
-
+import { ConnectWalletAlert } from './ConnectWalletAlert';
 import {
-  usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction
+  useAccount
 } from 'wagmi'
 
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
@@ -14,6 +13,8 @@ import { formatEther } from "ethers"
 
 export function BuyModal({showModal, closeModal, listing}) {
   const [address, setAddress] = useState('');
+
+  const { isConnected } = useAccount()
 
   const { data, isLoading, isSuccess, isError, write, error } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -31,7 +32,7 @@ export function BuyModal({showModal, closeModal, listing}) {
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-2xl">
+            <div className="relative w-full my-6 mx-auto max-w-2xl">
               <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 
                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
@@ -51,6 +52,7 @@ export function BuyModal({showModal, closeModal, listing}) {
                       <h3 className="text-lg font-semibold leading-6 text-gray-900">
                         Buy {listing.bellcoinAmount.toString()} BEL for {formatEther(listing.priceInEth)} ETH
                       </h3>
+                      { isConnected &&
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
                           Enter your Bellcoin address to receive the BEL. Make sure this is correct, we cannot recover your BEL if you enter the wrong address.
@@ -72,6 +74,7 @@ export function BuyModal({showModal, closeModal, listing}) {
                           </div>
                         </div>
                       </div>
+                      }
                     </div>
                   }
                 </div>
@@ -80,12 +83,13 @@ export function BuyModal({showModal, closeModal, listing}) {
                     {error?.message}
                   </ErrorAlert>
                 }
+                {isConnected &&
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse sm:gap-x-2">
                   <Button onClick={() => write()} disabled={isLoading || address.length != 34} size="md" scheme="primary">Buy {listing.bellcoinAmount.toString()} BEL for {formatEther(listing.priceInEth)} ETH</Button>
                   <Button onClick={() => closeModal()} size="md" scheme="muted">Cancel purchase</Button>
                 </div>
-
-               
+                }
+                { !isConnected && <ConnectWalletAlert />}           
               </div>
             </div>
           </div>

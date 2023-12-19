@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 import {
-  usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction
+  useWaitForTransaction,
+  useAccount
 } from 'wagmi'
 
 import bellcoinOTCABI from '@/abi/bellcoinOTC.json'
@@ -14,6 +14,7 @@ import { ErrorAlert } from '@/components/ErrorAlert';
 import Link from 'next/link';
 
 import { GetEthPrice } from '@/utils/GetEthPrice';
+import { ConnectWalletAlert } from '@/components/ConnectWalletAlert';
 
 export default function Create() {
   const [bellcoinAddress, setBellcoinAddress] = useState('');
@@ -22,6 +23,8 @@ export default function Create() {
   const [priceBEL, setPriceBEL] = useState('');
 
   const ethPrice = GetEthPrice();
+
+  const { isConnected } = useAccount()
 
   const { data, isError, write, error } = useContractWrite({
     address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -154,13 +157,16 @@ export default function Create() {
             <p className="mt-1 text-sm leading-6 text-gray-600">The dollar price is indicative only and used to help you calculate the amount of ETH to price your listing.</p>
           </div>
           <div className="">
-            <Button onClick={() => write()} disabled={isLoading || !isReady} size="md" scheme="primary">
-              <span className="flex items-center">
-                <span>Create listing</span>
-                {isLoading && <ArrowPathIcon className="animate-spin h-5 w-5 ml-3" />}
-              </span>
-              
-            </Button>
+            { !isConnected && <ConnectWalletAlert />}
+            { isConnected &&
+              <Button onClick={() => write()} disabled={isLoading || !isReady} size="md" scheme="primary">
+                <span className="flex items-center">
+                  <span>Create listing</span>
+                  {isLoading && <ArrowPathIcon className="animate-spin h-5 w-5 ml-3" />}
+                </span>
+                
+              </Button>
+            }
           </div>
 
           { isError &&
