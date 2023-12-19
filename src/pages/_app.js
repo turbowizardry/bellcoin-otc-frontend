@@ -3,6 +3,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import { optimism } from "wagmi/chains";
+import { Analytics } from '@vercel/analytics/react';
 
 import {
   getDefaultWallets,
@@ -42,6 +43,7 @@ export default function App({ Component, pageProps }) {
         <Header />
         <Component {...pageProps} />
         <Footer />
+        <Analytics />
       </RainbowKitProvider>
     </WagmiConfig>
   )
