@@ -110,6 +110,7 @@ export function Listing({ listing, usdPrice, onBuy }) {
           <div className="flex justify-between items-center border-t border-gray-200 mt-2 pt-2">
             <div className="flex space-x-4">
               <span className="text-gray-600 text-sm">ID: {listing.listingId}</span>
+              <span className="text-gray-600 text-sm">{listing.isDeposited ? "Deposited" : "Not deposited"}</span>
               <span className="text-gray-600 text-sm">Buyer: {listing.buyerBellcoinAddress}</span>
             </div>
             <div className="flex space-x-2 items-center justify-end">
