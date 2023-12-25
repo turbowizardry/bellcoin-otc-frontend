@@ -2,18 +2,20 @@ import { formatEther } from "ethers"
 
 export function Stats({ listings, ethPrice }) {
 
-  const { totalBEL, totalETH, soldBEL, soldETH } = listings.reduce((acc, listing) => {
+  const { totalBEL, totalETH, soldBEL, soldETH, totalCount, soldCount } = listings.reduce((acc, listing) => {
     if(listing.isDeposited && !listing.isCancelled && !listing.isSold) {
       acc.totalBEL += listing.bellcoinAmount
       acc.totalETH += listing.priceInEth
+      acc.totalCount += 1;
     }
 
     if(listing.isSold) {
       acc.soldBEL += listing.bellcoinAmount
       acc.soldETH += listing.priceInEth
+      acc.soldCount += 1;
     }
     return acc
-  }, { totalBEL: 0n, totalETH: 0n, soldBEL: 0n, soldETH: 0n })
+  }, { totalBEL: 0n, totalETH: 0n, soldBEL: 0n, soldETH: 0n, totalCount: 0, soldCount: 0 })
 
   const fullTotalPrice = formatEther(totalETH) * ethPrice;
   const listedBELPrice = fullTotalPrice / Number(totalBEL);
@@ -26,7 +28,7 @@ export function Stats({ listings, ethPrice }) {
       <div className="flex flex-col space-y-1">
         <div className="text-sm font-semibold leading-6 text-gray-600">🔮 Listed BEL 🔮</div>
         <div className="text-3xl font-semibold tracking-tight text-gray-900">
-          {totalBEL.toString()} BEL
+          {totalBEL.toString()} BEL <span className="text-sm">({totalCount} listings)</span>
           <span className="block text-lg font-medium">${listedBELPrice.toFixed(2)} per BEL</span>
         </div>
       </div>
@@ -34,7 +36,7 @@ export function Stats({ listings, ethPrice }) {
       <div className="flex flex-col space-y-1">
         <div className="text-sm font-semibold leading-6 text-gray-600">🔥 Sold BEL 🔥</div>
         <div className="text-3xl font-semibold tracking-tight text-gray-900">
-          {soldBEL.toString()} BEL
+          {soldBEL.toString()} BEL <span className="text-sm">({soldCount} listings)</span>
           <span className="block text-lg font-medium">${soldBELPrice.toFixed(2)} per BEL</span>
         </div>
       </div>
