@@ -69,12 +69,19 @@ export function Listing({ listing, usdPrice, onBuy }) {
             </div>
           </div>
 
-          <div className="max-w-sm truncate">
+          <div className="flex space-x-4">
             <Link 
               href={`https://belscan.io/address/${listing.sellerBellcoinAddress}`} 
               className="text-sm text-gray-700 hover:underline"
               target='_blank'>
               {listing.sellerBellcoinAddress}
+            </Link>
+
+            <Link 
+              href={`https://optimistic.etherscan.io/address/${listing.sellerEthAddress}`} 
+              className="text-sm text-gray-700 w-32 block truncate hover:underline"
+              target='_blank'>
+              {listing.sellerEthAddress}
             </Link>
           </div>
         </div>
