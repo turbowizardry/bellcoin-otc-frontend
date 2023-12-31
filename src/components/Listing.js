@@ -71,7 +71,7 @@ export function Listing({ listing, usdPrice, onBuy }) {
 
           <div className="flex space-x-4">
             <Link 
-              href={`https://belscan.io/address/${listing.sellerBellcoinAddress}`} 
+              href={`https://bells.quark.blue/address/${listing.sellerBellcoinAddress}`} 
               className="text-sm text-gray-700 hover:underline"
               target='_blank'>
               {listing.sellerBellcoinAddress}

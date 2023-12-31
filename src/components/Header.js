@@ -21,7 +21,7 @@ export function Header() {
   
           <div className="flex flex-1 items-center justify-end gap-x-6">
             <div className="hidden sm:flex sm:space-x-6">
-              <Link href={`https://belscan.io/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`} target="_blank" className="text-sm font-semibold leading-6 text-gray-900">
+              <Link href={`https://bells.quark.blue/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`} target="_blank" className="text-sm font-semibold leading-6 text-gray-900">
                 Escrow contract
               </Link>
 

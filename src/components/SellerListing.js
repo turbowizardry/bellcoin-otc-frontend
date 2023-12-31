@@ -57,7 +57,7 @@ export function SellerListing({listingId}) {
   
             <div className="">
               <Link 
-                href={`https://belscan.io/address/${data[1]}`} 
+                href={`https://bells.quark.blue/address/${data[1]}`} 
                 className="text-sm truncate text-ellipsis text-gray-700 hover:underline"
                 target='_blank'>
                 {data[1]}
