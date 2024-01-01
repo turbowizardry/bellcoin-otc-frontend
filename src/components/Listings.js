@@ -30,9 +30,27 @@ export const Listings = () => {
     return <div>{error.message}</div>
   }
 
-  function compareBySold(a, b) {
-    return (a.isSold === b.isSold)? 0 : b.isSold? -1 : 1;
+  function compareListings(a, b) {
+    // First, compare based on the isSold flag
+    if (a.isSold && !b.isSold) {
+        return 1;
+    } else if (!a.isSold && b.isSold) {
+        return -1;
+    }
+
+    // If both have the same isSold status, then sort by price
+    const priceA = BigInt(a.priceInEth) / BigInt(a.bellcoinAmount);
+    const priceB = BigInt(b.priceInEth) / BigInt(b.bellcoinAmount);
+
+    if (priceA > priceB) {
+      return 1;
+    } else if (priceA < priceB) {
+      return -1;
+    } else {
+      return 0;
+    }   
   }
+
 
   if(data) {
     let listings = data.map( (listing, listingIndex) => {
@@ -40,7 +58,7 @@ export const Listings = () => {
     });
 
     if( !isAdmin ) {
-      listings.sort(compareBySold);
+      listings.sort(compareListings);
     }
     
     return (
