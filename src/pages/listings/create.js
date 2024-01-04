@@ -66,7 +66,7 @@ export default function Create() {
               <p className='text-xl font-bold'>Send {bellcoinAmount} BEL to the escrow wallet</p>
               <div className="">
                 <p className='text-green-700 background-green-50 font-bold border border-green-500 py-2 px-4 rounded-md text-center'>{process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}</p>
-                <Link href={`https://bells.quark.blue/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`} target='_blank'><p className="text-sm text-gray-700 underline text-center mt-1">View escrow contract</p></Link>
+                <Link href={`https://belscan.io/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`} target='_blank'><p className="text-sm text-gray-700 underline text-center mt-1">View escrow contract</p></Link>
               </div>
               
               <p className='text-gray-700 text-sm'>Make sure you send the exact amount of BEL as this listing, otherwise your BEL may be lost.</p>

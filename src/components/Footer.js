@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const navigation = {
   main: [
-    { name: 'Escrow Address', href: `https://bells.quark.blue/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`, target: '_blank' },
+    { name: 'Escrow Address', href: `https://belscan.io/address/${process.env.NEXT_PUBLIC_BELLCOIN_ADDRESS}`, target: '_blank' },
     { name: 'Escrow Contract', href: `https://optimistic.etherscan.io/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`, target: '_blank' },
     { name: 'FAQ', href: '/faq', target: '_self' },
     { name: 'Your listings', href: '/listings', target: '_self' },
